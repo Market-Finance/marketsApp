@@ -35,7 +35,7 @@ def miner(url, querystring):
 
         if err_mes in list(payload.values()):
             time.sleep(random.random()+ 4)
-            return miner(querystring)
+            return miner(url, querystring)
 
         else:
             return payload

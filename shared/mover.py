@@ -1,5 +1,6 @@
 # Import Libraries
 import os
+import json
 from io import StringIO
 import azure.functions as func
 import azure.durable_functions as df
@@ -17,7 +18,6 @@ key_vault_url= f"https://{key_vault_name}.vault.azure.net"
 
 # Authenticate and securely retrieve Key Vault secret for access key value.
 az_credential= DefaultAzureCredential()
-
 
 def blob_container_service_client():
     """
@@ -72,19 +72,18 @@ def blob_storage_download(file_path:str, file_name:str):
     blob_path= f'{file_path}/{file_name}'
     container_client= blob_container_service_client()
     blob_client= container_client.get_blob_client(blob=blob_path)
-    #list_blob_files = return_blob_files(container_client)
 
     # Retrive extract blob file
     blob_download= blob_client.download_blob()
 
     # Download the blob octet-stream file into string
-    blob_data= StringIO(blob_download.content_as_text())
+    blob_data= blob_data= StringIO(blob_download.content_as_text())
 
     # Read blob file string as json, dictionary
+    blob_data= StringIO(blob_download.content_as_text())
     str_values= blob_data.getvalue()
-    data_dict_list= list(eval(str_values))
-
-    return data_dict_list
+    data_dict= list(eval(str_values))
+    return data_dict
 
 def blob_storage_upload(inMemory_data, file_path:str, file_name:str):
     """
@@ -113,11 +112,13 @@ def data_lake_storage_upload(inMemory_data, file_path, file_name):
     filesystem_name= 'processed-data'
     data_type= 'json'
     datalake_path= f'{file_path}/{file_name}_{now}.{data_type}'
-
-    # Upload json file to Data Lake 
     file_client= service_client.get_file_client(filesystem_name, datalake_path)
-    file_client.upload_data(data= inMemory_data, overwrite= True, length= len(inMemory_data))
-    file_client.flush_data(len(inMemory_data))
+
+    # encode the dictionary to bytes
+    encode_inMemory_data= json.dumps(inMemory_data).encode('utf-8')
+    
+    # Upload json file to Data Lake 
+    file_client.upload_data(data= encode_inMemory_data, overwrite= True)
     return True
 
 def blob_storage_delete(file_path, file_name): 

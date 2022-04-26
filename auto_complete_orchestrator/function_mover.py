@@ -25,7 +25,7 @@ def quotes_mover_out(inMemory_data):
     """
     # Blob file path and file_name destination
     blob_file_path= 'MarketFinance/market'
-    blob_file_name= 'quote.json'
+    blob_file_name= 'quotes.json'
 
     # Data Lake path and file_name destination
     data_lake_file_path= 'market/quotes'

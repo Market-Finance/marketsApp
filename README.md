@@ -1,6 +1,26 @@
 # Yahoo Finance- Markets Application 
+## 1. Local System Setup
+```
+# Check for python version 3.7 or greater
+python --version
 
-## 1. Establish Global variables for Azure CLI
+# Make sure Azure CLI is installed
+az --version
+
+# Make sure visual studio code is installed
+code --version
+
+# Make sure Azure Function Core Tools are installed
+func --version
+
+# Run az login to sign into Azure 
+az login
+
+# Turn on the param-persit option, so the varibles are automatically stored
+az config param-persit on
+```
+
+## 2. Establish Global variables for Azure CLI
 ```
 # Define the region for Application services
 $service_location= <define your server location>
@@ -45,13 +65,13 @@ $adls_secret_name= <define your data lake storage secrets name>
 $funcapp_name= marketApp
 ```
 
-## 2. Create a new repossitory in Github
+## 3. Create a new repossitory in Github
 ```
 # git clone to the project root 
 git clone <url>
 ```
 
-## 3. Create a Azure function app
+## 4. Create a Azure function app
 ```
 # Create a function project in the desired folder
 # Make sure you are in the right folder directory 
@@ -64,7 +84,7 @@ python -m venv .venv
 ..venv\Scripts\activate
 ``` 
 
-## 4. Configure host.json file
+## 5. Configure host.json file
 ```
 # Open the host.json file and add function Time out limit
 ## Set to 3 hours
@@ -72,7 +92,7 @@ python -m venv .venv
     "functionTimeout": "03:00:00"
 }
 ```
-## 5. Configure the local.settings.json file
+## 6. Configure the local.settings.json file
 ```
 # Open the local.settings file and define the following
 {
@@ -83,7 +103,7 @@ python -m venv .venv
     "X_RAPIDAPI_KEY": "x-rapidapi-key <define your X_RAPIDAPI_KEY>"
 }
 ```
-## 6. Create Azure function App on Azure portal
+## 7. Create Azure function App on Azure portal
 ```
 # Create Function app
 ## Basic
@@ -105,7 +125,7 @@ sku_and_size= <select based on the app service plan>
 ## Create
 ```
 
-## 7. Setup and Configure variables for Azure function environment
+## 8. Setup and Configure variables for Azure function environment
 ```
 az functionapp config appsettings set --name $funcapp_name --resource-group $resource_group_name --settings "KEY_VAULT_NAME=kvmarketfinance"
 az functionapp config appsettings set --name $funcapp_name --resource-group $resource_group_name --settings "ABS_SECRET_NAME=abs-access-key1"
@@ -113,7 +133,7 @@ az functionapp config appsettings set --name $funcapp_name --resource-group $res
 az functionapp config appsettings set --name $funcapp_name --resource-group $resource_group_name --settings "X_RAPIDAPI_HOST= x-rapidapi-host"
 az functionapp config appsettings set --name $funcapp_name --resource-group $resource_group_name --settings "X_RAPIDAPI_KEY= x-rapidapi-key"
 ```
-## 8. Azure functions App role assigments for all the service such as blob storage, DataLake and keyvault
+## 9. Azure functions App role assigments for all the service such as blob storage, DataLake and keyvault
 ```
 az functionapp identity assign --resource-group $resource_group_name --name $funcapp_name
 $func_principal_id=$(az resource list --name $funcapp_name --query [*].identity.principalId --output tsv)
@@ -123,7 +143,7 @@ az role assignment create --assignee $func_principal_id --role 'Key Vault Contri
 az role assignment create --assignee $func_principal_id --role 'Storage Blob Data Contributor' --resource-group  $resource_group_name
 az role assignment create --assignee $func_principal_id --role 'Storage Queue Data Contributor' --resource-group  $resource_group_name
 ```
-## 9. Setup CI/CD for Azure function application
+## 10. Setup CI/CD for Azure function application
 ```
 # Deployment center for commonApp
 source= 'Github'
@@ -135,7 +155,7 @@ build_povider= 'GitHub Actions'
 Runtime_stack= python
 Version= Python 3.8
 ```
-## 10. Check the configuration of the Azure function Application
+## 11. Check the configuration of the Azure function Application
 ```
 # CommonApp configuration
 # Application settings 
@@ -146,20 +166,20 @@ click edit, change and save
 for value
 @Microsoft.KeyVault(SecretUri=https://<key_vault_name>.vault.azure.net/secrets/<secret_name>/<version>)
 ```
-## 11. Common Application Implementation Overview
+## 12. Common Application Implementation Overview
 
-### 11.1 Activities
+### 12.1 Activities
 ####  Quotes
 ####  Trending tickers
 ####  Popular watchlists
 ####  Watchlist watchlist
 ####  Watchlist performance
 
-### 11.2 DurableFunction Http 
-### 11.3 Orchestrator
+### 12.2 DurableFunction Http 
+### 12.3 Orchestrator
 #### Auto Complete
 #### Popular Watchlist
-### 11.4 Shared
+### 12.4 Shared
 
 ```mermaid
     graph TD
@@ -201,7 +221,7 @@ for value
         end
 
 ```
-# 12. Git push and Deploy
+# 13. Git push and Deploy
 ```
 # commit the changes and push 
 git push
