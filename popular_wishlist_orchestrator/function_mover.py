@@ -1,5 +1,5 @@
-from shared.mover import blob_storage_upload
-from shared.mover import data_lake_storage_upload
+from shared import mover as mo
+
 
 def popular_watchlist_mover_out(inMemory_data):
     """
@@ -16,8 +16,8 @@ def popular_watchlist_mover_out(inMemory_data):
     data_lake_file_path= 'market/popular_watchlist'
     data_lake_file_name= 'popular_watchlist'    
 
-    blob_storage_upload(inMemory_data, blob_file_path, blob_file_name)
-    data_lake_storage_upload(inMemory_data, data_lake_file_path, data_lake_file_name)
+    mo.blob_storage_upload(inMemory_data, blob_file_path, blob_file_name)
+    mo.data_lake_storage_upload(inMemory_data, data_lake_file_path, data_lake_file_name)
 
     return "Success!"
 
@@ -36,8 +36,8 @@ def watchlist_details_mover_out(inMemory_data):
     data_lake_file_path= 'market/watchlist_details'
     data_lake_file_name= 'watchlist_details'    
 
-    blob_storage_upload(inMemory_data, blob_file_path, blob_file_name)
-    data_lake_storage_upload(inMemory_data, data_lake_file_path, data_lake_file_name)
+    mo.blob_storage_upload(inMemory_data, blob_file_path, blob_file_name)
+    mo.data_lake_storage_upload(inMemory_data, data_lake_file_path, data_lake_file_name)
     
     return "Success!"
 
@@ -56,8 +56,8 @@ def watchlist_performance_mover_out(inMemory_data):
     data_lake_file_path= 'market/watchlist_performance_mover'
     data_lake_file_name= 'watchlist_performance_mover'    
 
-    blob_storage_upload(inMemory_data, blob_file_path, blob_file_name)
-    data_lake_storage_upload(inMemory_data, data_lake_file_path, data_lake_file_name)
+    mo.blob_storage_upload(inMemory_data, blob_file_path, blob_file_name)
+    mo.data_lake_storage_upload(inMemory_data, data_lake_file_path, data_lake_file_name)
 
     return "Success!"
 

@@ -1,6 +1,4 @@
-from shared.mover import blob_storage_upload
-from shared.mover import data_lake_storage_upload
-from shared.mover import blob_storage_download
+from shared import mover as mo
 
 def auto_complete_mover_in():
     """
@@ -13,7 +11,7 @@ def auto_complete_mover_in():
     blob_file_path= 'MarketFinance/common'
     blob_file_name= 'auto_complete.json'
 
-    data= blob_storage_download(blob_file_path, blob_file_name)
+    data= mo.blob_storage_download(blob_file_path, blob_file_name)
     return data
 
 def quotes_mover_out(inMemory_data):
@@ -31,8 +29,8 @@ def quotes_mover_out(inMemory_data):
     data_lake_file_path= 'market/quotes'
     data_lake_file_name= 'quotes'
 
-    blob_storage_upload(inMemory_data, blob_file_path, blob_file_name)
-    data_lake_storage_upload(inMemory_data, data_lake_file_path, data_lake_file_name)
+    mo.blob_storage_upload(inMemory_data, blob_file_path, blob_file_name)
+    mo.data_lake_storage_upload(inMemory_data, data_lake_file_path, data_lake_file_name)
 
     return "Success!"
 
@@ -51,8 +49,8 @@ def trending_tickers_mover_out(inMemory_data):
     data_lake_file_path= 'market/trending_tickers'
     data_lake_file_name= 'trending_tickers'
 
-    blob_storage_upload(inMemory_data, blob_file_path, blob_file_name)
-    data_lake_storage_upload(inMemory_data, data_lake_file_path, data_lake_file_name)
+    mo.blob_storage_upload(inMemory_data, blob_file_path, blob_file_name)
+    mo.data_lake_storage_upload(inMemory_data, data_lake_file_path, data_lake_file_name)
 
     return "Success!"
 

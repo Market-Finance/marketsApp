@@ -172,7 +172,7 @@ for value
 ####  Quotes
 ####  Trending tickers
 ####  Popular watchlists
-####  Watchlist watchlist
+####  Watchlist details
 ####  Watchlist performance
 
 ### 12.2 DurableFunction Http 
