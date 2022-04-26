@@ -1,0 +1,11 @@
+{
+    "scriptFile": "__init__.py",
+    "bindings": [
+      {
+        "name": "querystring",
+        "type": "activityTrigger",
+        "direction": "in"
+      }
+    ]
+  }
+  
