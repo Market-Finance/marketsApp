@@ -1,4 +1,4 @@
-# Yahoo Finance- Market Application 
+# Yahoo Finance- Markets Application 
 
 ## 1. Establish Global variables for Azure CLI
 ```
@@ -55,7 +55,7 @@ git clone <url>
 ```
 # Create a function project in the desired folder
 # Make sure you are in the right folder directory 
-func init marketApp --python
+func init marketsApp --python
 
 # Create Python virtual environment 
 python -m venv .venv
@@ -172,7 +172,7 @@ for value
     I[Data Lake]
     J[Blob Storage]
 
-    subgraph Flow diagram details the overview of Market App Engine Implementation
+    subgraph Flow diagram details the overview of Markets App Engine Implementation
 
         J --Blob Download --> A
         subgraph Market Application Durable Functions HTTP Start
