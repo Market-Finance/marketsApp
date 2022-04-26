@@ -82,6 +82,9 @@ python -m venv .venv
 
 # Activate Python virtual environment
 ..venv\Scripts\activate
+
+# Install the requried packages
+pip install -r requirements.txt
 ``` 
 
 ## 5. Configure host.json file
