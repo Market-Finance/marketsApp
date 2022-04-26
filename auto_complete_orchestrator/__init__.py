@@ -7,7 +7,7 @@ import azure.durable_functions as df
 from function_mover import auto_complete_mover_in
 from operators import *
 
-def orchestrator_function(context: df.DurableOrchestrationContext):
+def orchestrator_function_1(context: df.DurableOrchestrationContext):
 
     # Auto complete read data from blob storage
     auto_complete_list= auto_complete_mover_in()
@@ -20,4 +20,4 @@ def orchestrator_function(context: df.DurableOrchestrationContext):
     
     return 'Success'
 
-main= df.Orchestrator.create(orchestrator_function) 
+main= df.Orchestrator.create(orchestrator_function_1) 

@@ -8,7 +8,7 @@ import azure.durable_functions as df
 from . import query_string as qs
 from . import function_mover as fm
 
-def orchestrator_function(context: df.DurableOrchestrationContext):
+def orchestrator_function_2(context: df.DurableOrchestrationContext):
     
     #  popular_watchlist extract and load
     popular_watchlist_list= yield context.call_activity('popular_watchlist', "None")
@@ -34,4 +34,4 @@ def orchestrator_function(context: df.DurableOrchestrationContext):
 
     return 'Success'
 
-main= df.Orchestrator.create(orchestrator_function)
+main= df.Orchestrator.create(orchestrator_function_2)
