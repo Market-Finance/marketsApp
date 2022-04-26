@@ -1,7 +1,6 @@
 from . import function_mover as fm
 from . import query_string as qs
 
-
 def trending_tickers_operator(context, auto_complete_list):
     """
     DESCRIPTION: The purpose of this operator function is to extract 

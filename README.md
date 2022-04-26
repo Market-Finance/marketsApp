@@ -199,12 +199,10 @@ for value
 
         J --Blob Download --> A
         subgraph Market Application Durable Functions HTTP Start
-            subgraph Auto Complete Orchestrator
+            subgraph Orchestrator
                 A --FAN OUT --> C
                 A --FAN OUT --> D
-                end
-            
-            subgraph Popular Watchlist Orchestrator
+    
                 B -- FAN OUT --> E 
                 E -- FAN OUT --> F
                 end

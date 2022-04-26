@@ -7,8 +7,9 @@ import azure.durable_functions as df
 
 from . import query_string as qs
 from . import function_mover as fm
+from . import operators as ops
 
-def orchestrator_function_2(context: df.DurableOrchestrationContext):
+def orchestrator_function(context: df.DurableOrchestrationContext):
     
     #  popular_watchlist extract and load
     popular_watchlist_list= yield context.call_activity('popular_watchlist', "None")
@@ -32,6 +33,14 @@ def orchestrator_function_2(context: df.DurableOrchestrationContext):
     watchlist_performance_list= yield context.task_all(watchlist_performance_activity)
     fm.watchlist_performance_mover_out(watchlist_performance_list)
 
+    # Auto complete read data from blob storage
+    auto_complete_list= fm.auto_complete_mover_in()
+
+    # Trending tickers extract and load
+    ops.trending_tickers_operator(context, auto_complete_list)
+
+    # Quotes tickets extract and load
+    ops.quotes_operator(context, auto_complete_list)
     return 'Success'
 
-main= df.Orchestrator.create(orchestrator_function_2)
+main= df.Orchestrator.create(orchestrator_function)
