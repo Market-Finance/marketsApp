@@ -1,4 +1,4 @@
-# Yahoo Finance- Markets Application 
+# Market Finance- Markets Application 
 ## 1. Local System Setup
 ```
 # Check for python version 3.7 or greater
