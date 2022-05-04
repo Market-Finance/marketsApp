@@ -74,20 +74,6 @@ def popular_watchlist_mover_out(inMemory_data):
 
     return "Success!"
 
-def popular_watchlist_mover_in():
-    """
-    DESCRIPTION: The purpose of this function is to download popular_watchlist
-                 from blob storage location
-    INPUT: None 
-    OUTPUT: encoded string 
-    """
-    # Blob file path and file_name source
-    blob_file_path= 'MarketFinance/market'
-    blob_file_name= 'popular_watchlist.json'
-
-    data= mo.blob_storage_download(blob_file_path, blob_file_name)
-    return data
-
 def watchlist_details_mover_out(inMemory_data):
     """
     DESCRIPTION: The purpose of this function is to move mined watchlist details
