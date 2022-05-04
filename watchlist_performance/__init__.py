@@ -15,7 +15,7 @@ from shared.fun_request import *
 # Override default settings
 sys.setrecursionlimit(10000)
 
-def main(queryString):
+def main(querystring):
     """
     DESCRIPTION: The purpose of this function is to pass a query string 
                  and extract market watchlist performance for a given stock
@@ -23,5 +23,5 @@ def main(queryString):
     OUTPUT: market watchlist performance dictionary
     """
     url = "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-watchlist-performance"
-    watchlist_performance_dict= miner(url, queryString)
+    watchlist_performance_dict= miner(url, querystring)
     return watchlist_performance_dict

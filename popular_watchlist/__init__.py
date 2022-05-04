@@ -48,4 +48,4 @@ def popular_watchlist(name:str):
 
 def main(name:str):
     popular_watchlist_dict= popular_watchlist(name)
-    return popular_watchlist_dict
+    return list([popular_watchlist_dict])

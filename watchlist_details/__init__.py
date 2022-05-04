@@ -15,7 +15,7 @@ from shared.fun_request import miner
 # Override default settings
 sys.setrecursionlimit(10000)
 
-def main(queryString):
+def main(querystring):
     """
     DESCRIPTION: The purpose of the method is to pass a query string
     and extract market quotes for a given stock
@@ -23,6 +23,6 @@ def main(queryString):
     OUTPUT: dictionary market quotes
     """
     url = "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-watchlist-detail"
-    watchlist_details_dict= miner(url, queryString)
+    watchlist_details_dict= miner(url, querystring)
     return watchlist_details_dict
 

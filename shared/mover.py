@@ -77,7 +77,7 @@ def blob_storage_download(file_path:str, file_name:str):
     blob_download= blob_client.download_blob()
 
     # Download the blob octet-stream file into string
-    blob_data= blob_data= StringIO(blob_download.content_as_text())
+    blob_data= StringIO(blob_download.content_as_text())
 
     # Read blob file string as json, dictionary
     blob_data= StringIO(blob_download.content_as_text())
