@@ -62,7 +62,7 @@ $abs_secret_name= <define your blob storage secrets name>
 $adls_secret_name= <define your data lake storage secrets name>
 
 # Define the function application name
-$funcapp_name= marketApp
+$funcapp_name= marketsApp
 ```
 
 ## 3. Create a new repossitory in Github
