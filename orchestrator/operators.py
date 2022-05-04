@@ -76,7 +76,7 @@ def quotes_operator(context, auto_complete_list):
 
 
 
-    # Popular_watchlist extract and load it to blob and datalake
+        # Popular_watchlist extract and load it to blob and datalake
     popular_watchlist_list= yield context.call_activity('popular_watchlist', "None")
     fm.popular_watchlist_mover_out(popular_watchlist_list)
 
