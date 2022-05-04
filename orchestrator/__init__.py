@@ -10,29 +10,6 @@ from . import query_string as qs
 
 
 def orchestrator_function(context: df.DurableOrchestrationContext):
-
-    # Auto complete read data from blob storage
-    auto_complete_list= fm.auto_complete_mover_in()
-
-    # Extract trending ticker stocks, and load it to blob and datalake
-    querystring_list= qs.trending_tickers_query_string(auto_complete_list)
-    trending_tickers_activity= [
-        context.call_activity('trending_tickers', querystring) for
-            querystring in querystring_list]
-    
-    trending_tickers_list= yield context.task_all(trending_tickers_activity)
-    fm.trending_tickers_mover_out(trending_tickers_list)
-    del trending_tickers_list
-
-    # Extract stock quotes, and load it to blob and datalake
-    querystring_list= qs.quotes_query_string(auto_complete_list)
-    quotes_activity= [
-        context.call_activity('quotes', querystring) for 
-            querystring in querystring_list]
-
-    quotes_list= yield context.task_all(quotes_activity)
-    fm.quotes_mover_out(quotes_list)
-    del quotes_list 
     
     # Popular_watchlist extract and load
     popular_watchlist_list= yield context.call_activity('popular_watchlist', "None")
@@ -52,8 +29,29 @@ def orchestrator_function(context: df.DurableOrchestrationContext):
             for querystring in querystring_list]
 
     watchlist_performance_list= yield context.task_all(watchlist_performance_activity)
+
+    # Auto complete read data from blob storage
+    auto_complete_list= fm.auto_complete_mover_in()
+
+    # Extract trending ticker stocks, and load it to blob and datalake
+    querystring_list= qs.trending_tickers_query_string(auto_complete_list)
+    trending_tickers_activity= [
+        context.call_activity('trending_tickers', querystring) for
+            querystring in querystring_list]
+    
+    trending_tickers_list= yield context.task_all(trending_tickers_activity)
+
+    # Extract stock quotes, and load it to blob and datalake
+    querystring_list= qs.quotes_query_string(auto_complete_list)
+    quotes_activity= [
+        context.call_activity('quotes', querystring) for 
+            querystring in querystring_list]
+
+    quotes_list= yield context.task_all(quotes_activity)
     
     # Moving out all the files to blob and data lake storage
+    fm.quotes_mover_out(quotes_list)
+    del quotes_list 
     fm.trending_tickers_mover_out(trending_tickers_list)
     del trending_tickers_list
     fm.watchlist_performance_mover_out(watchlist_performance_list)
