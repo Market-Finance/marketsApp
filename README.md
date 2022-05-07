@@ -199,14 +199,16 @@ for value
 
         J --Blob Download --> A
         subgraph Market Application Durable Functions HTTP Start
-            subgraph Orchestrator
+            subgraph Auto Complete Sub Orchestrator
                 A --FAN OUT --> C
                 A --FAN OUT --> D
-    
+                end
+            
+            subgraph Market Sub Orchestrator
                 B -- FAN OUT --> E 
                 E -- FAN OUT --> F
                 end
-            
+        
             C -- FAN IN, Upload --> I 
             D -- FAN IN, Upload --> I
             B -- FAN IN, Upload --> I
