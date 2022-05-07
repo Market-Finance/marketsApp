@@ -17,7 +17,6 @@ def orchestrator_function(context: df.DurableOrchestrationContext):
     trending_tickers_activity= [
         context.call_activity('trending_tickers', querystring) for 
             querystring in querystring_list]
-
     trending_tickers_list= yield context.task_all(trending_tickers_activity)
 
     # Extract stock quotes, and load it to blob and datalake
