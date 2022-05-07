@@ -29,9 +29,9 @@ def orchestrator_function(context: df.DurableOrchestrationContext):
     watchlist_performance_list= yield context.task_all(watchlist_performance_activity)
 
     # Moving out all the files to blob and data lake storage
-    fm.popular_watchlist_mover_out(popular_watchlist_list)
-    fm.watchlist_details_mover_out(watchlist_details_list)
     fm.watchlist_performance_mover_out(watchlist_performance_list)
+    fm.watchlist_details_mover_out(watchlist_details_list)
+    fm.popular_watchlist_mover_out(popular_watchlist_list)
 
     return "Success!"
 
