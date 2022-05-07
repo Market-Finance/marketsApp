@@ -7,7 +7,6 @@ import profile
 import azure.functions as func
 import azure.durable_functions as df
 
-from shared import funcion_mover as fm
 
 def orchestrator_function(context: df.DurableOrchestrationContext):
     activity_function_list= ["auto_completeSubOrch", "marketSubOrch"]
