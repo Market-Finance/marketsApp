@@ -1,5 +1,8 @@
 # Market Finance- Markets Application 
 Markets application aims to take the extracted Auto_Complete file, create a list of the query string, and pass it to quotes and trending tickers to extract the individual JSON request files. And pull the list of popular watchlists daily irrespectively, and run it through watchlist details and watchlist performance. Both these executions are split by sub-orchestrator, and then JSON response is appended and passed through the Yahoo Finance API to pull standardised API's query string for other endpoint requests, as the schema's requirements are slightly different. As a result, the success of API calls is increased, and this approach improves the data quality by fixing the data upstream. 
+
+The following details the implementation of the Market Application (end-to-end)
+
 ## 1. Local System Setup
 ```
 # Check for python version 3.7 or greater
