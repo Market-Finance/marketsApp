@@ -69,7 +69,7 @@ $adls_secret_name= <define your data lake storage secrets name>
 $funcapp_name= marketsApp
 ```
 
-## 3. Create a new repossitory in Github
+## 3. Create a new repository in Github
 ```
 # git clone to the project root 
 git clone <url>
