@@ -74,6 +74,8 @@ az login
 az config param-persit on
 ```
 
+[Back to Table of Contents](https://github.com/Market-Finance/marketsApp#table-of-contents)
+
 ## 2. Establish Global variables for Azure CLI
 ```
 # Define the region for Application services
@@ -119,11 +121,15 @@ $adls_secret_name= <define your data lake storage secrets name>
 $funcapp_name= marketsApp
 ```
 
+[Back to Table of Contents](https://github.com/Market-Finance/marketsApp#table-of-contents)
+
 ## 3. Create a new repository in Github
 ```
 # git clone to the project root 
 git clone <url>
 ```
+
+[Back to Table of Contents](https://github.com/Market-Finance/marketsApp#table-of-contents)
 
 ## 4. Create a Azure function app
 ```
@@ -141,6 +147,8 @@ python -m venv .venv
 pip install -r requirements.txt
 ``` 
 
+[Back to Table of Contents](https://github.com/Market-Finance/marketsApp#table-of-contents)
+
 ## 5. Configure host.json file
 ```
 # Open the host.json file and add function Time out limit
@@ -149,6 +157,9 @@ pip install -r requirements.txt
     "functionTimeout": "03:00:00"
 }
 ```
+
+[Back to Table of Contents](https://github.com/Market-Finance/marketsApp#table-of-contents)
+
 ## 6. Configure the local.settings.json file
 ```
 # Open the local.settings file and define the following
@@ -160,6 +171,9 @@ pip install -r requirements.txt
     "X_RAPIDAPI_KEY": "x-rapidapi-key <define your X_RAPIDAPI_KEY>"
 }
 ```
+
+[Back to Table of Contents](https://github.com/Market-Finance/marketsApp#table-of-contents)
+
 ## 7. Create Azure function App on Azure portal
 ```
 # Create Function app
@@ -182,6 +196,8 @@ sku_and_size= <select based on the app service plan>
 ## Create
 ```
 
+[Back to Table of Contents](https://github.com/Market-Finance/marketsApp#table-of-contents)
+
 ## 8. Setup and Configure variables for Azure function environment
 ```
 az functionapp config appsettings set --name $funcapp_name --resource-group $resource_group_name --settings "KEY_VAULT_NAME=kvmarketfinance"
@@ -190,6 +206,9 @@ az functionapp config appsettings set --name $funcapp_name --resource-group $res
 az functionapp config appsettings set --name $funcapp_name --resource-group $resource_group_name --settings "X_RAPIDAPI_HOST= x-rapidapi-host"
 az functionapp config appsettings set --name $funcapp_name --resource-group $resource_group_name --settings "X_RAPIDAPI_KEY= x-rapidapi-key"
 ```
+
+[Back to Table of Contents](https://github.com/Market-Finance/marketsApp#table-of-contents)
+
 ## 9. Azure functions App role assigments for all the service such as blob storage, DataLake and keyvault
 ```
 az functionapp identity assign --resource-group $resource_group_name --name $funcapp_name
@@ -200,6 +219,9 @@ az role assignment create --assignee $func_principal_id --role 'Key Vault Contri
 az role assignment create --assignee $func_principal_id --role 'Storage Blob Data Contributor' --resource-group  $resource_group_name
 az role assignment create --assignee $func_principal_id --role 'Storage Queue Data Contributor' --resource-group  $resource_group_name
 ```
+
+[Back to Table of Contents](https://github.com/Market-Finance/marketsApp#table-of-contents)
+
 ## 10. Setup CI/CD for Azure function application
 ```
 # Deployment center for commonApp
@@ -212,6 +234,9 @@ build_povider= 'GitHub Actions'
 Runtime_stack= python
 Version= Python 3.8
 ```
+
+[Back to Table of Contents](https://github.com/Market-Finance/marketsApp#table-of-contents)
+
 ## 11. Check the configuration of the Azure function Application
 ```
 # CommonApp configuration
@@ -223,6 +248,9 @@ click edit, change and save
 for value
 @Microsoft.KeyVault(SecretUri=https://<key_vault_name>.vault.azure.net/secrets/<secret_name>/<version>)
 ```
+
+[Back to Table of Contents](https://github.com/Market-Finance/marketsApp#table-of-contents)
+
 ## 12. Common Application Implementation Overview
 
 ```mermaid
@@ -267,6 +295,9 @@ for value
         end
 
 ```
+
+[Back to Table of Contents](https://github.com/Market-Finance/marketsApp#table-of-contents)
+
 ### 12.1 Durable functions
 The durable function is an extension of Azure functions that utilises stateful operations in a serverless
 environment. The extension manages state, checkpoints, and restarts based on the demand. Durable parts have several features that make it easy to incorporate durable orchestrations and entities into HTTP workflow.
@@ -301,10 +332,14 @@ Watchlist details Activity is used to extract the list of the targeted company's
 ####  Watchlist performance
 Watchlist performance Activity is used to extract the list of the targeted company's daily performance information. The script was written to scale and merge multiple sources of the company's data. So the business logic takes in the watchlist performance files to extract the variables needed for the endpoint query string. The query string list runs through the Fan-out/ Fan-in Durable function pattern. This executes multiple functions in parallel and then waits for all functions to finish. In our case, during the fan in the JSON response is appended together and pushed to Data Lake and blob storage. Given the current requirements of the market scanner, only NASDAQ and ASX listed companies are used in the list consolidation. Further updates will include NZX, etc., and the necessary framework is established to accommodate these updates.
 
+[Back to Table of Contents](https://github.com/Market-Finance/marketsApp#table-of-contents)
+
 ### 12.3 DurableFunction Http
 This feature simplifies calling HTTP APIs from your orchestrator functions. As you may know, in an orchestrator function, you're not allowed to perform any non-deterministic operations, so to call an HTTP API, you would need to call an activity function and make the HTTP request there. The Durable HTTP feature removes the need to create an additional activity function.
 
 Durable functions have several features that make it easy to incorporate durable orchestrations and entities into HTTP workflows- and utilising async operations tracking, with the approach, if the calling API's long-running operations, it would simply return 202 and the running status. We could call the API again to find the status of the running session until the underlying activities are completed.
+
+[Back to Table of Contents](https://github.com/Market-Finance/marketsApp#table-of-contents)
 
 ### 12.4 Orchestrator
 The orchestrator function is used to orchestrate the execution of other Durable functions within a function app (marketsApp). The following are some of the characteristics of the orchestrator function.
@@ -325,6 +360,8 @@ Auto Complete Sub orchestrator is a compilation of quotes and trending tickers a
 #### Market Sub-Orchestrator
 Market Sub orchestrator is a compilation of popular watchlists, watchlist detail and watchlist performance, as these activities take the response from popular watchlists to extract respective query strings. Once the extracting is completed, the function's variables are used to execute the sub-orchestrator via fan-out/ fan-in configuration. And the execution is called by the Market orchestrator.
 
+[Back to Table of Contents](https://github.com/Market-Finance/marketsApp#table-of-contents)
+
 ### 12.5 Shared
 #### 12.5.1 Function Requests
 Function Request is a generalised function named miner that takes in the API endpoint URL and its respective query string. It checks for the error message and tries to execute the call again (if it exceeds the rate limit) by adding a sleep statement for a few seconds. This returns a JSON response and gets appended while the miner function gets used in an activity function.
@@ -332,8 +369,12 @@ Function Request is a generalised function named miner that takes in the API end
 #### 12.5.2 Mover
 Mover file is a compilation of various code snips such as, blob_container_service_client, datalake_service_client, return_blob_files, blob_storage_download, blob_storage_upload, and blob_storage_upload, data_lake_storage_upload, and blob_storage_delete. The file represents all the data mover in and out of the functions local Memeory/ storage (blob and datalake). 
 
+[Back to Table of Contents](https://github.com/Market-Finance/marketsApp#table-of-contents)
+
 # 13. Git push and Deploy
 ```
 # commit the changes and push 
 git push
 ```
+
+[Back to Table of Contents](https://github.com/Market-Finance/marketsApp#table-of-contents)
