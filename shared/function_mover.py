@@ -8,7 +8,7 @@ def auto_complete_mover_in():
     OUTPUT: encoded string 
     """
     # Blob file path and file_name source
-    blob_file_path= 'MarketFinance/common'
+    blob_file_path= 'MarketFinance/common/auto_complete_new'
     blob_file_name= 'auto_complete.json'
 
     data= mo.blob_storage_download(blob_file_path, blob_file_name)
