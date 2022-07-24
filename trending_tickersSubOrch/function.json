@@ -2,7 +2,7 @@
     "scriptFile": "__init__.py",
     "bindings": [
       {
-        "name": "context",
+        "name": "name",
         "type": "orchestrationTrigger",
         "direction": "in"
       }
