@@ -9,7 +9,7 @@ import azure.durable_functions as df
 
 
 def orchestrator_function(context: df.DurableOrchestrationContext):
-    activity_function_list= ["auto_completeSubOrch", "marketSubOrch"]
+    activity_function_list= ["trending_tickersSubOrch", "quotesSubOrch", "marketSubOrch"]
 
     # Run multiple device provisioning flows in parallel
     provisioning_tasks=[]
