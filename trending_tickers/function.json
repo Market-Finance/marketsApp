@@ -2,7 +2,7 @@
     "scriptFile": "__init__.py",
     "bindings": [
       {
-        "name": "querystring",
+        "name": "name",
         "type": "activityTrigger",
         "direction": "in"
       }
