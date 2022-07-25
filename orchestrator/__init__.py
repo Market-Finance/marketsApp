@@ -9,8 +9,8 @@ import azure.durable_functions as df
 
 
 def orchestrator_function(context: df.DurableOrchestrationContext):
-    activity_function_list= ["marketSubOrch", "trending_tickersSubOrch"]
-    #"trending_tickersSubOrch", "quotesSubOrch", 
+    activity_function_list= ["trending_tickersSubOrch"]
+    #"marketSubOrch", "trending_tickersSubOrch", "quotesSubOrch"
 
     # Run multiple device provisioning flows in parallel
     provisioning_tasks=[]
@@ -19,6 +19,7 @@ def orchestrator_function(context: df.DurableOrchestrationContext):
         provisioning_tasks.append(provision_task)
 
     yield context.task_all(provisioning_tasks)
+    
 
     return "Success"
 
